@@ -64,7 +64,7 @@
 </head>
 <body>
     <div class="calculator">
-        <h1>Calculateur de valeur pour graphistes</h1>
+        <h1>Calculateur de valeur</h1>
         <form id="valueCalculator">
             <div class="question">
                 <label for="expertise">Niveau d'expertise pour ce projet (1-10) :</label>
@@ -89,7 +89,7 @@
             <div class="question">
                 <label>
                     <input type="checkbox" id="strategy" name="strategy">
-                    Incluez-vous une stratégie de marque ?
+                    Inclus-tu une stratégie de marque ?
                 </label>
             </div>
             <div class="question">
@@ -101,7 +101,7 @@
             <div class="question">
                 <label>
                     <input type="checkbox" id="additionalServices" name="additionalServices">
-                    Proposez-vous des services additionnels (ex: conseil, formation) ?
+                    Proposes-tu des services additionnels (ex: conseil, formation) ?
                 </label>
             </div>
         </form>
@@ -133,8 +133,8 @@
 
                 const coefficient = ((valueScore - 1) / (10 - 1)) * (5 - 1) + 1;
 
-                result.innerHTML = `<p>Votre coefficient de valeur est : <strong>${coefficient.toFixed(2)}</strong></p>
-                                    <p>Ce coefficient suggère que vous pouvez multiplier votre tarif de base par ${coefficient.toFixed(2)} pour ce projet.</p>`;
+                result.innerHTML = `<p>Ton coefficient de valeur est : <strong>${coefficient.toFixed(2)}</strong></p>
+                                    <p>Ce coefficient suggère que tu peux multiplier le tarif de base par ${coefficient.toFixed(2)} pour ce projet.</p>`;
             }
 
             inputs.forEach(input => {
