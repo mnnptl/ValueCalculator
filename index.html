@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculateur de valeur pour graphistes</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+            padding: 20px;
+        }
+        .calculator {
+            background-color: white;
+            padding: 30px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            width: 100%;
+            max-width: 500px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .question {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+        input[type="range"] {
+            width: 100%;
+        }
+        input[type="checkbox"] {
+            margin-right: 10px;
+        }
+        #result {
+            margin-top: 30px;
+            font-weight: 600;
+            text-align: center;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            border: 1px solid #e9ecef;
+        }
+        .range-value {
+            text-align: center;
+            font-weight: 500;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <h1>Calculateur de valeur pour graphistes</h1>
+        <form id="valueCalculator">
+            <div class="question">
+                <label for="expertise">Niveau d'expertise pour ce projet (1-10) :</label>
+                <input type="range" id="expertise" name="expertise" min="1" max="10" value="5">
+                <div class="range-value" id="expertiseValue">5</div>
+            </div>
+            <div class="question">
+                <label for="complexity">Complexité du projet (1-10) :</label>
+                <input type="range" id="complexity" name="complexity" min="1" max="10" value="5">
+                <div class="range-value" id="complexityValue">5</div>
+            </div>
+            <div class="question">
+                <label for="timeframe">Délai du projet (1 = très long, 10 = très court) :</label>
+                <input type="range" id="timeframe" name="timeframe" min="1" max="10" value="5">
+                <div class="range-value" id="timeframeValue">5</div>
+            </div>
+            <div class="question">
+                <label for="impact">Impact potentiel sur l'entreprise du client (1-10) :</label>
+                <input type="range" id="impact" name="impact" min="1" max="10" value="5">
+                <div class="range-value" id="impactValue">5</div>
+            </div>
+            <div class="question">
+                <label>
+                    <input type="checkbox" id="strategy" name="strategy">
+                    Incluez-vous une stratégie de marque ?
+                </label>
+            </div>
+            <div class="question">
+                <label>
+                    <input type="checkbox" id="uniqueDesign" name="uniqueDesign">
+                    Le design est-il unique et sur-mesure ?
+                </label>
+            </div>
+            <div class="question">
+                <label>
+                    <input type="checkbox" id="additionalServices" name="additionalServices">
+                    Proposez-vous des services additionnels (ex: conseil, formation) ?
+                </label>
+            </div>
+        </form>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('valueCalculator');
+            const result = document.getElementById('result');
+            const inputs = document.querySelectorAll('input');
+
+            function updateResult() {
+                const expertise = parseInt(document.getElementById('expertise').value);
+                const complexity = parseInt(document.getElementById('complexity').value);
+                const timeframe = parseInt(document.getElementById('timeframe').value);
+                const impact = parseInt(document.getElementById('impact').value);
+                const strategy = document.getElementById('strategy').checked;
+                const uniqueDesign = document.getElementById('uniqueDesign').checked;
+                const additionalServices = document.getElementById('additionalServices').checked;
+
+                let valueScore = (expertise + complexity + timeframe + impact) / 4;
+
+                if (strategy) valueScore += 1;
+                if (uniqueDesign) valueScore += 1;
+                if (additionalServices) valueScore += 1;
+
+                valueScore = Math.min(10, valueScore);
+
+                const coefficient = ((valueScore - 1) / (10 - 1)) * (5 - 1) + 1;
+
+                result.innerHTML = `<p>Votre coefficient de valeur est : <strong>${coefficient.toFixed(2)}</strong></p>
+                                    <p>Ce coefficient suggère que vous pouvez multiplier votre tarif de base par ${coefficient.toFixed(2)} pour ce projet.</p>`;
+            }
+
+            inputs.forEach(input => {
+                input.addEventListener('input', function() {
+                    if (this.type === 'range') {
+                        document.getElementById(`${this.id}Value`).textContent = this.value;
+                    }
+                    updateResult();
+                });
+            });
+
+            updateResult();
+        });
+    </script>
+</body>
+</html>
