@@ -133,8 +133,7 @@
 
                 const coefficient = ((valueScore - 1) / (10 - 1)) * (5 - 1) + 1;
 
-                result.innerHTML = `<p>Ton coefficient de valeur est : <strong>${coefficient.toFixed(2)}</strong></p>
-                                    <p>Ce coefficient suggère que tu peux multiplier le tarif de base par ${coefficient.toFixed(2)} pour ce projet.</p>`;
+                result.innerHTML = `<p>Ton coefficient de valeur est : <strong>${coefficient.toFixed(2)}</strong></p>`;
             }
 
             inputs.forEach(input => {
