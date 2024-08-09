@@ -141,9 +141,9 @@
             function updateResult() {
                 const values = Array.from(inputs).map(input => parseInt(input.value));
                 const valueScore = values.reduce((sum, value) => sum + value, 0) / values.length;
-                const coefficient = ((valueScore - 1) / (10 - 1)) * 0.5;
+                const coefficient = Math.round((valueScore - 1) * (50 / 9)); // Arrondi à l'entier le plus proche
 
-                result.innerHTML = `<p>Ton coefficient de valeur est : <strong>${coefficient.toFixed(2)}</strong></p>`;
+                result.innerHTML = `<p>Ton coefficient de valeur est : <strong>${coefficient}</strong></p>`;
             }
 
             inputs.forEach(input => {
