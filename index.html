@@ -42,9 +42,7 @@
         }
         input[type="range"] {
             width: 100%;
-        }
-        input[type="checkbox"] {
-            margin-right: 10px;
+            margin-bottom: 2px;
         }
         #result {
             margin-top: 30px;
@@ -60,6 +58,13 @@
             font-weight: 500;
             margin-top: 5px;
         }
+        .scale-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            color: #666;
+            margin-top: 2px;
+        }
     </style>
 </head>
 <body>
@@ -67,42 +72,58 @@
         <h1>Calculateur de valeur</h1>
         <form id="valueCalculator">
             <div class="question">
-                <label for="expertise">Niveau d'expertise pour ce projet (1-10) :</label>
-                <input type="range" id="expertise" name="expertise" min="1" max="10" value="5">
-                <div class="range-value" id="expertiseValue">5</div>
+                <label for="rarity">Rareté / Expertise du service :</label>
+                <input type="range" id="rarity" name="rarity" min="1" max="10" value="5">
+                <div class="scale-labels">
+                    <span>Service courant</span>
+                    <span>Expertise unique</span>
+                </div>
+                <div class="range-value" id="rarityValue">5</div>
             </div>
             <div class="question">
-                <label for="complexity">Complexité du projet (1-10) :</label>
+                <label for="importance">Importance pour le projet du client :</label>
+                <input type="range" id="importance" name="importance" min="1" max="10" value="5">
+                <div class="scale-labels">
+                    <span>Secondaire</span>
+                    <span>Crucial</span>
+                </div>
+                <div class="range-value" id="importanceValue">5</div>
+            </div>
+            <div class="question">
+                <label for="complexity">Complexité technique du projet :</label>
                 <input type="range" id="complexity" name="complexity" min="1" max="10" value="5">
+                <div class="scale-labels">
+                    <span>Simple</span>
+                    <span>Très complexe</span>
+                </div>
                 <div class="range-value" id="complexityValue">5</div>
             </div>
             <div class="question">
-                <label for="timeframe">Délai du projet (1 = très long, 10 = très court) :</label>
-                <input type="range" id="timeframe" name="timeframe" min="1" max="10" value="5">
-                <div class="range-value" id="timeframeValue">5</div>
+                <label for="lifespan">Durée de vie estimée du projet :</label>
+                <input type="range" id="lifespan" name="lifespan" min="1" max="10" value="5">
+                <div class="scale-labels">
+                    <span>Court terme</span>
+                    <span>Long terme</span>
+                </div>
+                <div class="range-value" id="lifespanValue">5</div>
             </div>
             <div class="question">
-                <label for="impact">Impact potentiel sur l'entreprise du client (1-10) :</label>
-                <input type="range" id="impact" name="impact" min="1" max="10" value="5">
-                <div class="range-value" id="impactValue">5</div>
+                <label for="scope">Étendue du projet :</label>
+                <input type="range" id="scope" name="scope" min="1" max="10" value="5">
+                <div class="scale-labels">
+                    <span>Petit projet</span>
+                    <span>Projet complet</span>
+                </div>
+                <div class="range-value" id="scopeValue">5</div>
             </div>
             <div class="question">
-                <label>
-                    <input type="checkbox" id="strategy" name="strategy">
-                    Inclus-tu une stratégie de marque ?
-                </label>
-            </div>
-            <div class="question">
-                <label>
-                    <input type="checkbox" id="uniqueDesign" name="uniqueDesign">
-                    Le design est-il unique et sur-mesure ?
-                </label>
-            </div>
-            <div class="question">
-                <label>
-                    <input type="checkbox" id="additionalServices" name="additionalServices">
-                    Proposes-tu des services additionnels (ex: conseil, formation) ?
-                </label>
+                <label for="roi">Potentiel de retour sur investissement :</label>
+                <input type="range" id="roi" name="roi" min="1" max="10" value="5">
+                <div class="scale-labels">
+                    <span>Faible/Incertain</span>
+                    <span>Élevé/Évident</span>
+                </div>
+                <div class="range-value" id="roiValue">5</div>
             </div>
         </form>
         <div id="result"></div>
@@ -112,25 +133,11 @@
         document.addEventListener('DOMContentLoaded', function() {
             const form = document.getElementById('valueCalculator');
             const result = document.getElementById('result');
-            const inputs = document.querySelectorAll('input');
+            const inputs = document.querySelectorAll('input[type="range"]');
 
             function updateResult() {
-                const expertise = parseInt(document.getElementById('expertise').value);
-                const complexity = parseInt(document.getElementById('complexity').value);
-                const timeframe = parseInt(document.getElementById('timeframe').value);
-                const impact = parseInt(document.getElementById('impact').value);
-                const strategy = document.getElementById('strategy').checked;
-                const uniqueDesign = document.getElementById('uniqueDesign').checked;
-                const additionalServices = document.getElementById('additionalServices').checked;
-
-                let valueScore = (expertise + complexity + timeframe + impact) / 4;
-
-                if (strategy) valueScore += 1;
-                if (uniqueDesign) valueScore += 1;
-                if (additionalServices) valueScore += 1;
-
-                valueScore = Math.min(10, valueScore);
-
+                const values = Array.from(inputs).map(input => parseInt(input.value));
+                const valueScore = values.reduce((sum, value) => sum + value, 0) / values.length;
                 const coefficient = ((valueScore - 1) / (10 - 1)) * (5 - 1) + 1;
 
                 result.innerHTML = `<p>Ton coefficient de valeur est : <strong>${coefficient.toFixed(2)}</strong></p>`;
@@ -138,9 +145,7 @@
 
             inputs.forEach(input => {
                 input.addEventListener('input', function() {
-                    if (this.type === 'range') {
-                        document.getElementById(`${this.id}Value`).textContent = this.value;
-                    }
+                    document.getElementById(`${this.id}Value`).textContent = this.value;
                     updateResult();
                 });
             });
