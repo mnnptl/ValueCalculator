@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculateur de valeur pour graphistes</title>
+    <title>Calculateur de valeur d'un projet</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -65,6 +65,9 @@
             color: #666;
             margin-top: 2px;
         }
+        .emoji {
+            margin-right: 5px;
+        }
     </style>
 </head>
 <body>
@@ -72,7 +75,7 @@
         <h1>Calculateur de valeur</h1>
         <form id="valueCalculator">
             <div class="question">
-                <label for="rarity">Rareté / Expertise du service :</label>
+                <label for="rarity"><span class="emoji">💎</span>Rareté / Expertise du service :</label>
                 <input type="range" id="rarity" name="rarity" min="1" max="10" value="5">
                 <div class="scale-labels">
                     <span>Service courant</span>
@@ -81,7 +84,7 @@
                 <div class="range-value" id="rarityValue">5</div>
             </div>
             <div class="question">
-                <label for="importance">Importance pour le projet du client :</label>
+                <label for="importance"><span class="emoji">♟️</span>Importance pour le projet du client :</label>
                 <input type="range" id="importance" name="importance" min="1" max="10" value="5">
                 <div class="scale-labels">
                     <span>Secondaire</span>
@@ -90,7 +93,7 @@
                 <div class="range-value" id="importanceValue">5</div>
             </div>
             <div class="question">
-                <label for="complexity">Complexité technique du projet :</label>
+                <label for="complexity"><span class="emoji">🔧</span>Complexité technique du projet :</label>
                 <input type="range" id="complexity" name="complexity" min="1" max="10" value="5">
                 <div class="scale-labels">
                     <span>Simple</span>
@@ -99,7 +102,7 @@
                 <div class="range-value" id="complexityValue">5</div>
             </div>
             <div class="question">
-                <label for="lifespan">Durée de vie estimée du projet :</label>
+                <label for="lifespan"><span class="emoji">⏳</span>Durée de vie estimée du projet :</label>
                 <input type="range" id="lifespan" name="lifespan" min="1" max="10" value="5">
                 <div class="scale-labels">
                     <span>Court terme</span>
@@ -108,7 +111,7 @@
                 <div class="range-value" id="lifespanValue">5</div>
             </div>
             <div class="question">
-                <label for="scope">Étendue du projet :</label>
+                <label for="scope"><span class="emoji">🔬</span>Étendue du projet :</label>
                 <input type="range" id="scope" name="scope" min="1" max="10" value="5">
                 <div class="scale-labels">
                     <span>Petit projet</span>
@@ -117,7 +120,7 @@
                 <div class="range-value" id="scopeValue">5</div>
             </div>
             <div class="question">
-                <label for="roi">Potentiel de retour sur investissement :</label>
+                <label for="roi"><span class="emoji">📈</span>Potentiel de retour sur investissement :</label>
                 <input type="range" id="roi" name="roi" min="1" max="10" value="5">
                 <div class="scale-labels">
                     <span>Faible/Incertain</span>
